@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <script type="text/javascript">
+    var audio = new Audio('caramelldansen.mp3');
+    audio.loop = true;
+    audio.volume = 0.5
+  </script>
+
+  <style type="text/css">
+    @font-face {
+      font-family: mlp;
+      src: url(mlp.ttf);
+    }
+
+    body {
+      font-family: 'mlp', Fallback, sans-serif;
+      color: #E52075;
+      text-align: center;
+    }
+
+    #container {
+      display: flex;
+      /* establish flex container */
+      flex-direction: column;
+      /* make main axis vertical */
+      justify-content: center;
+      /* center items vertically, in this case */
+      align-items: center;
+      /* center items horizontally, in this case */
+      height: 100vh;
+    }
+
+    html,
+    body {
+      height: 100%;
+      margin: 0;
+    }
+
+    .footer {
+      position: fixed;
+      bottom: 0;
+      display: flex;
+      align-items: center;
+      flex-direction: row;
+      justify-content: center;
+    }
+  </style>
+
+  <link rel="icon" type="image/png" href="pinkiepie.png">
+
+  <title>FUN</title>
+</head>
+
+<body onclick="start()">
+
+  <div id="container" style="background: rgba(0, 0, 0, 0.94);">
+    <canvas id="fun" style="position: fixed;z-index:-1;">Error, canvas is not supported</canvas>
+    <canvas id="fun2" style="position: fixed;z-index:0;">Error, canvas is not supported</canvas>
+    <!-- flex container -->
+    <div class="box" id="welcome" style="z-index:99;margin-bottom: 30px;">
+      <!-- flex item -->
+      <p>click anywhere</p>
+    </div>
+    <div class="footer" style="opacity: 1;" id="welcome2">
+      <!-- flex item -->
+      <img src="Pinkamena1.png">
+    </div>
+    <div class="footer" style="opacity: 0;" id="pinkie">
+      <!-- flex item -->
+      <img src="pinkie22.png">
+    </div>
+  </div>
+
+</body>
+<script type="text/javascript">
+  const c1 = document.getElementById("fun2");
+  const x1 = c1.getContext('2d');
+  c1.width = window.innerWidth;
+  c1.height = window.innerHeight;
+
+  const bg = document.getElementById("container");
+  const welcome = document.getElementById("welcome");
+  const welcome2 = document.getElementById("welcome2");
+  const pinkie = document.getElementById("pinkie");
+  let op = 0.94
+  let transition = 0;
+  let fun = 0
+  function draw() {
+    var fontSize = Math.random() * 25;
+    var x = Math.random() * window.innerWidth;
+    var y = Math.random() * window.innerHeight;
+    var r = Math.floor(Math.random() * 255) + 50;
+    var g = Math.floor(Math.random() * 255) + 50;
+    var b = Math.floor(Math.random() * 255) + 50;
+
+    var color = 'rgba(' + r + ',' + g + ',' + b + ',0.6)';
+    x1.fillStyle = color;
+    x1.font = fontSize + 'pt mlp';
+    x1.fillText('FUN', x, y);
+  }
+
+
+  function start() {
+    if (fun === 1) { return }
+    fun = 1
+    audio.play();
+    welcome.style.opacity = 0
+    const interval = setInterval(remove_bg, 100)
+    function remove_bg() {
+      if (op <= 0) {
+        clearInterval(interval)
+      }
+      op -= 0.01
+      bg.style.background = R(0, 0, 0, op)
+      pinkie.style.opacity = 1 - op
+    }
+
+    let op2 = 1
+    const interval2 = setInterval(remove_bg2, 25)
+    function remove_bg2() {
+      if (op2 <= 0) {
+        clearInterval(interval2)
+      }
+      op2 -= 0.01
+      welcome2.style.opacity = op2
+    }
+    const drawTimer = window.setInterval(draw, 120);
+  }
+
+
+</script>
+<script type="text/javascript">
+    window.onresize = () => {
+      c.width = window.innerWidth;
+      c.height = window.innerHeight;
+      c1.width = window.innerWidth;
+      c1.height = window.innerHeight;
+    }
+  const c = document.getElementById("fun");
+  const x = c.getContext('2d');
+
+  c.width = window.innerWidth;
+  c.height = window.innerHeight;
+  var FPS = 60;
+  var S = Math.sin;
+  function R(r, g, b, a) {
+    a = a === undefined ? 1 : a;
+    return "rgba(" + (r | 0) + "," + (g | 0) + "," + (b | 0) + "," + a + ")";
+  }
+  var C = Math.cos;
+  var time = 0;
+  var frame = 0;
+  var nextFrameMs = 0;
+  function u(t) {
+    // console.log(1)
+    for (i = 99; i--; x.fillRect(o = -i * 9, o, s = i * 18, s))x.resetTransform(), x.translate(window.innerWidth / 2, a = window.innerHeight / 2), x.rotate(i / 2 * t / 3), x.fillStyle = R(S(i) * a, C(i) * a, S(t + i) * a)
+  }
+  function loop(frame_time) {
+    requestAnimationFrame(loop);
+    epsilon = 1.5; // Acounts for different timestamp resolution and slight jitter
+    if (frame_time < nextFrameMs - epsilon) {
+      return; // Skip this cycle as we are animating too quickly.
+    }
+    nextFrameMs = Math.max(nextFrameMs + 1000 / FPS, frame_time);
+    time = frame / FPS;
+    if ((time * FPS) | (0 == frame - 1)) {
+      time += 0.000001;
+    }
+    frame++;
+    try {
+      u(time);
+    } catch (e) {
+      throw e;
+    }
+  }
+  loop(0.0);
+</script>
+
+</html>
