@@ -1,2 +1,2 @@
 # ponkpink
-https://ponk.pink/
+https://qwertyforce.github.io/ponkpink/
